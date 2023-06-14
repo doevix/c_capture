@@ -46,6 +46,8 @@ char **captureInput(size_t *N_entries)
 		char buf[20];
 		n = NULL;
 		printf("> ");
+
+		// User input.
 		fgets(buf, sizeof(buf), stdin);
 
 		if (buf[0] != '\n' && buf[0] != '\0') {
