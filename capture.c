@@ -8,15 +8,22 @@ struct llNode
 	struct llNode *nxt;
 };
 
+// Takes in user input, returns array with user entries.
 char **captureInput(size_t *N_entries);
+// Move contents of linked-list to a new string array.
 char **arTransfer(struct llNode *head, size_t N_nodes);
 
+// Add new node to linked-list.
 struct llNode *addNode(struct llNode *node);
+
+// Clear linked-list from given node.
 void clear_ll(struct llNode *node);
+// Clear string array.
 void clear_ar(char **ar, size_t N);
 
 int main(void)
 {
+	// Just take user input and display it.
 	size_t N = 0;
 	char **names = captureInput(&N);
 
@@ -27,6 +34,7 @@ int main(void)
 	return 0;
 }
 
+// Takes in user input, returns array with user entries.
 char **captureInput(size_t *N_entries)
 {
 	struct llNode *n = NULL, *list = NULL, *last = NULL;
@@ -36,6 +44,7 @@ char **captureInput(size_t *N_entries)
 		printf("> ");
 		fgets(buf, sizeof(buf), stdin);
 
+		// Adds nodes to a linked-list, stops adding on blank entry.
 		if (buf[0] != '\n' && buf[0] != '\0') {
 
 			++(*N_entries);
@@ -52,15 +61,19 @@ char **captureInput(size_t *N_entries)
 
 	} while (n);
 
+	// Moves contents of linked-list over to a string array.
 	char **ar = arTransfer(list, *N_entries);
 
+	// Delete the linked-list, now that we don't need it anymore.
 	clear_ll(list);
 
 	return ar;
 }
 
+// Move contents of linked-list to a new string array.
 char **arTransfer(struct llNode *head, size_t N_nodes)
 {
+	// Avoid creating zero size array on empty linked-list.
 	if (N_nodes == 0 || head == NULL) return NULL;
 
 	char **ar = malloc(sizeof(char**) * N_nodes);
@@ -75,6 +88,7 @@ char **arTransfer(struct llNode *head, size_t N_nodes)
 	return ar;
 }
 
+// Add new node to linked-list.
 struct llNode *addNode(struct llNode *node)
 {
 	struct llNode *n = malloc(sizeof(struct llNode*));
@@ -85,6 +99,7 @@ struct llNode *addNode(struct llNode *node)
 	return n;
 }
 
+// Clear linked-list from given node.
 void clear_ll(struct llNode *node)
 {
 	while(node) {
@@ -94,6 +109,7 @@ void clear_ll(struct llNode *node)
 	}	
 }
 
+// Clear string array.
 void clear_ar(char **ar, size_t N)
 {
 	int i = 0;
