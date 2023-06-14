@@ -9,14 +9,10 @@ struct llNode
 };
 
 // Takes in user input, returns array with user entries.
-char **captureInput(size_t *N_entries, char *(*prompt)(char*, size_t));
-// Prompts this function can take.
-char *staticPrompt(char *s, size_t counter);
-char *numericPrompt(char *s, size_t counter);
-char *alphaPrompt(char *s, size_t counter);
-
+char **captureInput(size_t *N_entries);
 // Move contents of linked-list to a new string array.
 char **arTransfer(struct llNode *head, size_t N_nodes);
+
 // Add new node to linked-list.
 struct llNode *addNode(struct llNode *node);
 
@@ -29,7 +25,7 @@ int main(void)
 {
 	// Just take user input and display it.
 	size_t N = 0;
-	char **names = captureInput(&N, alphaPrompt);
+	char **names = captureInput(&N);
 
 	for (int i = 0; i < N; i++) printf("%s\n", names[i]);
 
@@ -39,7 +35,7 @@ int main(void)
 }
 
 // Takes in user input, returns array with user entries.
-char **captureInput(size_t *N_entries, char *(*prompt)(char*, size_t))
+char **captureInput(size_t *N_entries)
 {
 	struct llNode *n = NULL, *list = NULL, *last = NULL;
 
@@ -47,10 +43,9 @@ char **captureInput(size_t *N_entries, char *(*prompt)(char*, size_t))
 
 	// Adds nodes to a linked-list, stops adding on blank entry.
 	do {
-		char buf[20], pbuf[200];
+		char buf[20];
 		n = NULL;
-
-		printf("%s", prompt(pbuf, *N_entries));
+		printf("> ");
 
 		// User input.
 		fgets(buf, sizeof(buf), stdin);
@@ -97,22 +92,6 @@ char **arTransfer(struct llNode *head, size_t N_nodes)
 		node = node->nxt;
 	}
 	return ar;
-}
-// Prompts this function can take.
-// Ordinary static prompt.
-char *staticPrompt(char *s, size_t counter) {
-	strcpy(s, "> ");
-	return s;
-}
-// Numbered prompt.
-char *numericPrompt(char *s, size_t counter) {
-	sprintf(s, "%d: ", counter + 1);
-	return s;
-}
-// Alphabetical prompt. (lowercase)
-char *alphaPrompt(char *s, size_t counter) {
-	sprintf(s, "%c: ", (char)counter + 'a');
-	return s;
 }
 
 // Add new node to linked-list.
