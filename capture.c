@@ -38,13 +38,16 @@ int main(void)
 char **captureInput(size_t *N_entries)
 {
 	struct llNode *n = NULL, *list = NULL, *last = NULL;
+
+	*N_entries = 0;
+
+	// Adds nodes to a linked-list, stops adding on blank entry.
 	do {
 		char buf[20];
 		n = NULL;
 		printf("> ");
 		fgets(buf, sizeof(buf), stdin);
 
-		// Adds nodes to a linked-list, stops adding on blank entry.
 		if (buf[0] != '\n' && buf[0] != '\0') {
 
 			++(*N_entries);
