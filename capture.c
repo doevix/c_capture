@@ -53,6 +53,7 @@ char **captureInput(size_t *N_entries)
 			last = n;
 			if (!list) list = n;
 
+			// A return character will be included, replace with '\0'
 			n->str = calloc(strlen(buf), sizeof(char));
 			strcpy(n->str, buf);
 			(n->str)[strlen(buf) - 1] = '\0';
